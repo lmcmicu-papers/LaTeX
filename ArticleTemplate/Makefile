@@ -33,26 +33,29 @@ bib: $(name).bib
 
 docx: $(name).docx
 
-# The `bib` target makes a smaller bibliography file that only includes the references actually
-# cited in your .tex file. Note the following:
+# The `bib` target makes a smaller bibliography file that only includes the references
+# actually cited in your .tex file. Note the following:
 #
 # Note 1: There is no dependency on the .dvi file here since adding a dependency on the .dvi
 # would be circular. Just make sure to run `make dvi` first before generating a new .bib
 # file, since `bibexport` requires a .bbl file. We are not adding a dependency on the .bbl,
-# though, since if we do then the bibliography will unnecessarily have to be recreated everytime
+# though, since if we do then the bibliography will have to be recreated everytime
 # the .bbl file is changed, and this isn't necessary.
 #
 # Note 2: The name specified in the \bibliography{...}{} directive in your .tex file must be
 # the _source_ bibliography and not the target bibliography. Once the target is generated you
-# should then change the name in your .tex file.
+# should then change the name specified in \bibliography{...}{} in your .tex file.
 #
 # Note 3: Before compiling your .tex file using the target bibliography, make sure to change
 # the definition of `bibname` above (i.e., in this Makefile).
+#
+# Note 4: To produce a sorted bibliography, uncomment the second and third lines below
+# and make sure to move the bibsort.sh script to the current working directory.
 
 $(name).bib:
 	bibexport -o $(name).bib $(name).aux
-	bibsort.sh < $(name).bib > /tmp/$(name).sorted.bib
-	mv -f /tmp/$(name).sorted.bib $(name).bib
+	# bash bibsort.sh < $(name).bib > /tmp/$(name).sorted.bib
+	# mv -f /tmp/$(name).sorted.bib $(name).bib
 
 $(diapics:.dia=.eps): $(diapics)
 	for diafile in $(diapics:.dia=); \
@@ -102,9 +105,9 @@ $(diffname).tex: $(name).tex $(deps)
 	# those spots. This is easy if you understand how \DIFaddbegin, \DIFadd,
 	# \DIFend, etc. work (which is straightforward).
 	#
-	# Also, sometimes latexdiff fucks up the colours for some reason. You can
+	# Also, sometimes latexdiff messes up the colours for some reason. You can
 	# always customise the colours manually in the diff file's preamble
-	# to fix this. If the colours are fucked up you can just set them to
+	# to fix this. If the colours are messed up you can just set them to
 	# black. It won't be as nice but it will still work fine.
 	#
 	# To run the diff against a particular REF (e.g, "HEAD"), run like:

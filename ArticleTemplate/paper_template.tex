@@ -57,15 +57,22 @@
 \usepackage{lineno}
 \linenumbers
 
+% For figures
+% \usepackage{pstricks}
+
 % Allows you to create tables without vertical separators
 % \usepackage{booktabs}
 
 % Use a smaller point for figure captions
 \usepackage[font=small,labelfont=bf]{caption}
 
-% hidelinks removes surrounding boxes in ref links. breaklinks allows
-% line breaking for links. breakurl is specific to urls.
+% The hidelinks option to hyperref removes surrounding boxes in ref links. The breaklinks option
+% allows line breaking for links.
 \usepackage[hidelinks,breaklinks]{hyperref}
+% Replaces \ref and \eqref with ``clever'' \cref command.
+% should be loaded after other packages such as hyperref
+% \usepackage{cleveref}
+% The breakurl package option is specific to urls.
 \usepackage[hyphenbreaks]{breakurl}
 
 % for author affiliation
